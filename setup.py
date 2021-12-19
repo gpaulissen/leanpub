@@ -3,7 +3,7 @@ from setuptools import setup
 from sys import version_info
 
 NAME = 'leanpub'
-VERSION = '0.2.0'
+VERSION = '0.3.0'
 
 
 def readme():
@@ -16,7 +16,8 @@ def readme():
 
 INSTALL_REQUIRES = (
     ['argh'] +
-    ['watchdog']
+    ['watchdog[watchmedo]'] +
+    ['pandoc']
 )
 
 setup(
@@ -43,6 +44,11 @@ setup(
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     keywords='automation, pdf, format',

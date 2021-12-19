@@ -6,7 +6,7 @@
 # Until --terminate is pushed upstream in watchdog, we vendorise it.
 
 import subprocess
-from watchdog.tricks import Trick, has_attribute
+from watchdog.tricks import Trick
 
 
 class ShellCommandTrick(Trick):
@@ -16,8 +16,9 @@ class ShellCommandTrick(Trick):
     def __init__(self, shell_command=None, patterns=None, ignore_patterns=None,
                  ignore_directories=False, wait_for_process=False,
                  drop_during_process=False, terminate_on_event=False):
-        super(ShellCommandTrick, self).__init__(patterns, ignore_patterns,
-                                                ignore_directories)
+        super().__init__(
+            patterns=patterns, ignore_patterns=ignore_patterns,
+            ignore_directories=ignore_directories)
         self.shell_command = shell_command
         self.wait_for_process = wait_for_process
         self.drop_during_process = drop_during_process
@@ -48,13 +49,13 @@ class ShellCommandTrick(Trick):
         }
 
         if self.shell_command is None:
-            if has_attribute(event, 'dest_path'):
+            if hasattr(event, 'dest_path'):
                 context.update({'dest_path': event.dest_path})
                 command = 'echo "${watch_event_type} ${watch_object} from ${watch_src_path} to ${watch_dest_path}"'
             else:
                 command = 'echo "${watch_event_type} ${watch_object} ${watch_src_path}"'
         else:
-            if has_attribute(event, 'dest_path'):
+            if hasattr(event, 'dest_path'):
                 context.update({'watch_dest_path': event.dest_path})
             command = self.shell_command
 
@@ -62,4 +63,3 @@ class ShellCommandTrick(Trick):
         self.process = subprocess.Popen(command, shell=True)
         if self.wait_for_process:
             self.process.wait()
-

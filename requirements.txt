@@ -1,0 +1,4 @@
+argh
+watchdog[watchmedo]
+pandoc
+
